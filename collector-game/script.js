@@ -40,7 +40,9 @@ const trash = [
 ];
 
 const characters = [
-  {src: "Layla-game-coding/collector-game/BinThereCharacterRUN.gif",
+  {src: "Layla-game-coding/collector-game/BinthereCharacterRUN.gif"},
+  {src: "Layla-game-coding/collector-game/BinthereCharacterJUMP.gif}
+]
    
 
 function startRound() {

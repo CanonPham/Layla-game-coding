@@ -100,5 +100,11 @@ function gameFinished() {
     bin.style.pointerEvents = "none";
   });
 }
+
+function gameOver() {
+  clearInterval(timerId);
+  gameActive = false;
+  document.getElementbyId("game-end").styled.display = "block";
+  
 //finish line shows up
 //Three bins show up and it shows how many many points you got for each bin

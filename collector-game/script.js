@@ -7,6 +7,9 @@ let lives = 3;
 let currentItem = null;
 let timeLeft = 30;
 let timerId = null;
+let CompostCount = 0;
+let RecyclingCount = 0;
+let TrashCount = 0;
 
 document.getElementbyId("game-over").style.display = "none";
 document.getElementById("timer").style.display = "none";
@@ -23,7 +26,7 @@ const obstacles = [
  ]
 
 const trash = [
-  src = "Layla-game-coding/collector-game/apple core - compost.png", 
+  { src = "Layla-game-coding/collector-game/apple core - compost.png"} , 
   src = "Layla-game-coding/collector-game/Box - recycling.png",
   src = "Layla-game-coding/collector-game/chips - trash.png", 
   src = "Layla-game-coding/collector-game/water bottle - recycling.png",
@@ -55,7 +58,6 @@ function startRound() {
   timerEl.style.color = "black";
   timerEl.textContent = timeLeft;
 
-  remove
   spawnObstacle();
   //is there a way to make obstacle show up more or less frequently (like every 2 seconds, for instance)
   spawnTrash();
@@ -85,6 +87,11 @@ function collectTrash() {
   spawnTrash();
 }
 
+function assortment() {
+  if itemType == Compost:
+    compostCount++;
+  if itemType 
+}
 function hitsObstacle()
 //makes the character fall down or get upset when they run into an obstacle
 
@@ -116,4 +123,6 @@ function gameOver() {
   
   
 //finish line shows up
-//Three bins show up and it shows how many many points you got for each bin
+//Three bins show up and it shows how many points you got for each bin
+//The count of the # of items in each category will show up on the bin, racking up like a slot machine or something like that
+//Bit total of the items that the player has picked up will show up separately at the top

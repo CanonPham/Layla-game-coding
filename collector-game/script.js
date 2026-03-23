@@ -1,4 +1,21 @@
+let gameActive = true;
+console.log("JS is running");
+
+// Starting conditions for the game
+let score = 0;
+let lives = 3;
+let currentItem = null;
+let timeLeft = 30;
+let timerId = null;
+
 document.getElementbyId("game-over").style.display = "none";
+document.getElementById("timer").style.display = "none";
+
+// Making Sure the instructions disappear after 3 seconds
+setTimeout(() => {
+  document.getElementById("instructions").style.display = "none";
+  startRound();
+}, 3000);
 
 const obstacles = [
   src = "https://illustoon.com/photo/12781.png", 
@@ -6,36 +23,33 @@ const obstacles = [
  ]
 
 const trash = [
-  src = "Item Images/apple core - compost.png", 
-  src = "Item Images/Box - recycling.png",
-  src = "Item Images/chips - trash.png", 
-  src = "Item Images/water bottle - recycling.png",
-  src = "Item Images/Banana.png", 
-  src = "Item Images/Bread.png",
-  src = "Item Images/Can.png", 
-  src = "Item Images/Cardboard.png", 
-  src = "Item Images/Newspaper.png", 
-  src = "Item Images/Envelope.png",
-  src = "Item Images/Leaves.png", 
-  src = "Item Images/Branch.png", 
-  src = "Item Images/Glass.png",
-  src = "Item Images/Styrofoam.png"
+  src = "Layla-game-coding/collector-game/apple core - compost.png", 
+  src = "Layla-game-coding/collector-game/Box - recycling.png",
+  src = "Layla-game-coding/collector-game/chips - trash.png", 
+  src = "Layla-game-coding/collector-game/water bottle - recycling.png",
+  src = "Layla-game-coding/collector-game/Banana.png", 
+  src = "Layla-game-coding/collector-game/Bread.png",
+  src = "Layla-game-coding/collector-game/Can.png", 
+  src = "Layla-game-coding/collector-game/Cardboard.png", 
+  src = "Layla-game-coding/collector-game/Newspaper.png", 
+  src = "Layla-game-coding/collector-game/Envelope.png",
+  src = "Layla-game-coding/collector-game/Leaves.png", 
+  src = "Layla-game-coding/collector-game/Branch.png", 
+  src = "Layla-game-coding/collector-game/Glass.png",
+  src = "Layla-game-coding/collector-game/Styrofoam.png"
 ];
 
-instructionsTimer = 3;
-
-document.getElementbyId("intro-text").style.display = "block";
-function instructionsTimer() {
-  if (instructionsTimer > 0)
-    instructionsTimer -= 1;
-    setTimeout(instructionsTimer, 3000); 
-}
-document.getElementbyId("intro-text").style.display = "none";
-
-let score = 0;
-let timeLeft = 30;
 function startRound() {
-  document.getElementbyId("game-over").style.display = "none";
+  if (!gameActive) return;
+
+  clearInterval(timerId);
+
+  const timerEl = document.getElementById("timer");
+  timerEl.style.display = "block";
+  timerEl.style.color = "black";
+  timerEl.textContent = timeLeft;
+
+  remove
   spawnObstacle();
   //is there a way to make obstacle show up more or less frequently (like every 2 seconds, for instance)
   spawnTrash();
@@ -44,19 +58,41 @@ function startRound() {
 function startTimer()
 //Instead of losing a life, what would happen is the finish line would appear 
    
-function jump()
+function jump() {
+  
+}
 
 function slideUnder()
 
-function collectTrash()
+function collectTrash() {
 //User gains a point
+  score++;
+  document.getElementById("score").textContent = score;
 //Trash disappears
+  document.getElementById("item-container").style.display = "none";
 //New trash spawn
+  spawnTrash();
+}
 
 function hitsObstacle()
 //makes the character fall down or get upset when they run into an obstacle
 
-function gameFinished()
-//Shows score
+function gameFinished() {
+  clearInterval(timerId);
+  gameActive = false;
+  document.getElementById("game-end").style.display = "block";
+  //No items show up anymore
+  document.getElementById("item-container").innerHTML = "";
+  //remove the score 
+  document.getElementById("score").style.display = "none";
+  //remove the timer
+  document.getElementById("timer").style.display = "none";
+  //Show the red x
+  document.getElementById("red-x").style.display = "block";
+  //Can't interact
+  document.querySelectorAll(".bin").forEach(bin => {
+    bin.style.pointerEvents = "none";
+  });
+}
 //finish line shows up
 //Three bins show up and it shows how many many points you got for each bin

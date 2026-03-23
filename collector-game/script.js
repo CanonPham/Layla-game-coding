@@ -64,9 +64,14 @@ function startRound() {
 function startTimer()
 //Instead of losing a life, what would happen is the finish line would appear 
    
-function jump() {
+
+  //double up arrow to jump
+  //place of Jump GIF goes higher on screen if you double click 
+document.addEventListener("keydown", e => {
+  if (e.code === "ArrowUp") jump();
+  //Test whether the character goes higher if you double click the up arrow
+  if (e.code) === "ArrowDown") slide();
   
-}
 
 function slideUnder()
 
@@ -104,7 +109,11 @@ function gameFinished() {
 function gameOver() {
   clearInterval(timerId);
   gameActive = false;
-  document.getElementbyId("game-end").styled.display = "block";
+  document.getElementbyId("game-over").style.display = "block";
+  document.getElementbyId("score").style.display = "block";
+  document.getElementbyId("timer").style.display = "none";
+}
+  
   
 //finish line shows up
 //Three bins show up and it shows how many many points you got for each bin

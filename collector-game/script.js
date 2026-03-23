@@ -39,6 +39,10 @@ const trash = [
   src = "Layla-game-coding/collector-game/Styrofoam.png"
 ];
 
+const characters = [
+  {src: "Layla-game-coding/collector-game/BinThereCharacterRUN.gif",
+   
+
 function startRound() {
   if (!gameActive) return;
 

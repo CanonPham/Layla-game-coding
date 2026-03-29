@@ -21,12 +21,12 @@ setTimeout(() => {
 }, 3000);
 
 const obstacles = [
-  src = "https://illustoon.com/photo/12781.png", 
-  src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7XqoEW4V1E1P_HHOr3dGQDEnDeKpa0Em3Q&s", 
+  { src = "https://illustoon.com/photo/12781.png" }, 
+  { src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7XqoEW4V1E1P_HHOr3dGQDEnDeKpa0Em3Q&s" }, 
  ]
 
 const trash = [
-  { src = "Layla-game-coding/collector-game/apple core - compost.png"} , 
+  { src = "Layla-game-coding/collector-game/apple core - compost.png" , type: "compost"
   src = "Layla-game-coding/collector-game/Box - recycling.png",
   src = "Layla-game-coding/collector-game/chips - trash.png", 
   src = "Layla-game-coding/collector-game/water bottle - recycling.png",
@@ -43,57 +43,75 @@ const trash = [
 ];
 
 const characters = [
-  {src: "Layla-game-coding/collector-game/BinthereCharacterRUN.gif"},
-  {src: "Layla-game-coding/collector-game/BinthereCharacterJUMP.gif}
+  { src: "Layla-game-coding/collector-game/BinthereCharacterRUN.gif" },
+  { src: "Layla-game-coding/collector-game/BinthereCharacterJUMP.gif }
 ]
    
-
-function startRound() {
-  if (!gameActive) return;
-
-  clearInterval(timerId);
-
-  const timerEl = document.getElementById("timer");
-  timerEl.style.display = "block";
-  timerEl.style.color = "black";
-  timerEl.textContent = timeLeft;
-
-  spawnObstacle();
-  //is there a way to make obstacle show up more or less frequently (like every 2 seconds, for instance)
-  spawnTrash();
+function startGame() {
+  startTimer();
+  gameLoop();
+  spawnTrashLoop();
+  spawnObstacleLoop();
 }
 
-function startTimer()
+function startTimer() {
 //Instead of losing a life, what would happen is the finish line would appear 
-   
+  timerId = setInterval(() => {
+    timeLeft--;
+    document.getElementbyId("timer").textContext = timeLeft;
 
+    if (timeLeft <= 0) {
+      clearInterval(timerId);
+      gameFinished();
+    }
+  }, 1000);
+}
+   
   //double up arrow to jump
   //place of Jump GIF goes higher on screen if you double click 
 document.addEventListener("keydown", e => {
   if (e.code === "ArrowUp") jump();
   //Test whether the character goes higher if you double click the up arrow
   if (e.code) === "ArrowDown") slide();
-  
 
-function slideUnder()
+function isColliding(a, b) {
+  const rect1 = a.getBoundingClientRect();
+  const rect2 = b.getBoundingClientRect();
+
+  return !(
+    rect1.right < rect2.left ||
+    rect1.left > rect2.right ||
+    rect1.bottom < rect2.top ||
+    rect1.top > rect2.bottom
+  );
+}
 
 function collectTrash() {
 //User gains a point
   score++;
   document.getElementById("score").textContent = score;
 //Trash disappears
-  document.getElementById("item-container").style.display = "none";
-//New trash spawn
-  spawnTrash();
+  item.remove();
 }
 
 function assortment() {
-  if itemType == Compost:
+  if itemType == "compost":
     compostCount++;
-  if itemType 
+  if itemType == "recycling":
+    recyclingCount++;
+  if itemType == "trash":
+    trashCount++;
 }
-function hitsObstacle()
+
+function hitsObstacle(obs) {
 //makes the character fall down or get upset when they run into an obstacle
+  lives--;
+  obs.remove();
+  document.getElementById("player").classList.add("hit");
+  if (lives <= 0) {
+    gameFinished();
+  }
+}
 
 function gameFinished() {
   clearInterval(timerId);

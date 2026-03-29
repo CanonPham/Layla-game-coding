@@ -66,6 +66,34 @@ function startTimer() {
     }
   }, 1000);
 }
+
+function spawnTrashLoop() {
+  if (!gameActive) return;
+
+  spawnTrash();
+
+  setTimeout(spawnTrashLoop, 2000); // every 2 sec
+}
+
+function spawnTrash() {
+  const data = trash[Math.floor(Math.random() * trash.length)];
+
+  const item = document.createElement("img");
+  item.src = data.src;
+  item.classList.add("trash", "moving");
+  item.style.position = "absolute";
+  item.style.left = "100%";
+  item.style.bottom = "50px";
+
+  document.getElementById("game-container").appendChild(item);
+}
+
+function moveObjects() {
+  document.querySelectorAll(".moving").forEach(obj => {
+    let currentLeft = parseInt(obj.style.left || 300);
+    obj.style.left = (currentLeft - 5) + "px";
+  });
+}
    
   //double up arrow to jump
   //place of Jump GIF goes higher on screen if you double click 
@@ -84,6 +112,22 @@ function isColliding(a, b) {
     rect1.bottom < rect2.top ||
     rect1.top > rect2.bottom
   );
+}
+
+function checkCollisions() {
+  const player = document.getElementById("player");
+
+  document.querySelectorAll(".trash").forEach(item => {
+    if (isColliding(player, item)) {
+      collectTrash(item);
+    }
+  });
+
+  document.querySelectorAll(".obstacle").forEach(obs => {
+    if (isColliding(player, obs)) {
+      hitObstacle(obs);
+    }
+  });
 }
 
 function collectTrash() {
@@ -120,14 +164,19 @@ function gameFinished() {
   //No items show up anymore
   document.getElementById("item-container").innerHTML = "";
   //remove the score 
-  document.getElementById("score").style.display = "none";
+  document.getElementById("score").style.display = "block";
   //remove the timer
   document.getElementById("timer").style.display = "none";
-  //Show the red x
-  document.getElementById("red-x").style.display = "block";
+  //Show the different counts
+  document.getElementById("finish-line").style.display = "block";
+
+  document.getElementById("results").innerHTML =
+    Compost: ${compostCount} <br>
+    Recycling: ${recyclingCount} <br>
+    Trash: ${trashCount}
   //Can't interact
   document.querySelectorAll(".bin").forEach(bin => {
-    bin.style.pointerEvents = "none";
+    bin.style.pointerEvents = "block";
   });
 }
 

@@ -4,33 +4,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <title>Trash Collector Game</title>
+  <link href="style.css" rel="stylesheet">
 </head>
 
-<p class = "intro-text"> Welcome! Collect the trash & avoid the obstacles - good luck </p>
-
-
-<div class = "game-container"> 
-    <img src = "https://media.istockphoto.com/id/483370877/vector/pixel-character.jpgs"
-    class = "character">
-    
-  <div class = "obstacles-list"></div>
-  <div class = "trash-list"></div>
-  <div class = "score"> Score: 0 </div>
-  <div class = "compostCount"> 0 </div>
-  <div class = "recyclingCount"> 0 </div>
-  <div class = "trashCount"> 0 </div>
-  <div class = "timer"></div>
-    <img src = "Layla-game-coding/collector-game/BinthereBACKDROP1.png"
-      class = "background">
-</div>
-
-<p class = "game-over"> Game Over - reload to try again! </p>
-  
-
 <body>
+
+  <p id="instructions" class="intro-text">
+    Welcome! Collect the trash & avoid the obstacles - good luck
+  </p>
+
+  <div id="game-container">
+
+    <img src="Layla-game-coding/collector-game/BinthereBACKDROP1.png"
+         id="background">
+
+    <img id="player"
+         src="Layla-game-coding/collector-game/BinthereCharacterRUN.gif">
+
+    <!-- Score + Timer -->
+    <div id="score">0</div>
+    <div id="timer"></div>
+
+  </div>
+
+  <div id="game-end" style="display: none;">
+    <p>Game Over - reload to try again!</p>
+    <div id="results"></div>
+  </div>
+
+  <!-- Script -->
   <script src="script.js"></script>
+
 </body>
 
 </html>
